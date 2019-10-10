@@ -1,3 +1,5 @@
+const {HOURS_TO_FINISH_EDUCATION, HOURS_TO_LEARN_BASICS} = require("./constants");
+
 /**
  * @param preferences - target student focus
  * @param knowsProgramming - if student can do programming and know basics
@@ -5,10 +7,14 @@
  * @returns number of weeks needed for finish education
  */
 module.exports = function getTimeForEducation(
-    focus = 'family', 
+    focus = 'family',
     knowsProgramming = true,
     config = {family: 4}
-    ) {
-      return 0;
-  };
+) {
+    if (knowsProgramming) {
+        return Math.ceil(HOURS_TO_FINISH_EDUCATION / config[focus]);
+    }
+
+    return Math.ceil((HOURS_TO_LEARN_BASICS + HOURS_TO_FINISH_EDUCATION) / config[focus]);
+};
   
